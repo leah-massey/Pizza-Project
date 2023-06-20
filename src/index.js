@@ -76,11 +76,18 @@ function Menu() {
       <h2>Our Menu</h2>
 
       {numPizzas > 0 ? (
-        <ul className="pizzas">
-          {pizzas.map((pizza) => (
-            <Pizza pizzaObj={pizza} key={pizza.name} />
-          ))}
-        </ul>
+        // React fragment
+        <>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from our stone overn. All organic, all delicious.
+          </p>
+          <ul className="pizzas">
+            {pizzas.map((pizza) => (
+              <Pizza pizzaObj={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>
       ) : (
         <p>We're currently out of stock, sorry!</p>
       )}
@@ -105,14 +112,12 @@ function Menu() {
 function Pizza({ pizzaObj }) {
   console.log(pizzaObj);
 
-  if (pizzaObj.soldOut) return null;
-
   return (
     <li className="pizza">
       <img src={pizzaObj.photoName} alt={pizzaObj.name} />
       <h3>{pizzaObj.name}</h3>
       <p>{pizzaObj.ingredients}</p>
-      <span>{pizzaObj.price}</span>
+      <span>{pizzaObj.soldOut ? "SOLD OUT" : pizzaObj.price}</span>
     </li>
   );
 }
@@ -141,6 +146,7 @@ function Footer() {
   );
 }
 
+//destructured prop (don't forget the curly braces!)
 function Order({ closeHour }) {
   return (
     <div className="order">
